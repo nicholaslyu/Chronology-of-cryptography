@@ -8,16 +8,19 @@ sub_decrypt = {0:"A",1:"B",2:"C",3:"D",4:"E",5:"F",6:"G",
        13:"N",14:"O",15:"P",16:"Q",17:"R",18:"S",
        19:"T",20:"U",21:"V",22:"W",23:"X",24:"Y",
        25:"Z"}
+from re import sub
 class Caesar:
-    def __init__(self,key):
+    def __init__(self,key:int):
         self.key =key
+    def __encode(self,text: str):
+        stripped = sub(r"[^a-zA-Z]", "", text)
+        return stripped.upper()
+    def set_key(self,new_key:int):
+        self.__init__(new_key)
     def encrypt(self,text):
         if isinstance(text,str)==False:
             raise TypeError('Input should be string')
-        if text.isalpha()==False:
-            raise ValueError("Input should contain only alphbets")
-        text = text.strip()
-        text = text.upper()
+        text = self.__encode(text)
         cipher = "".join([sub_decrypt[(sub_encrpty[letter]+self.key)%26] for letter in text])
         return cipher
     def decrypt(self,text):
