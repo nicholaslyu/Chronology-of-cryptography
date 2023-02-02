@@ -44,7 +44,7 @@ class Rect:
         return "".join(cipher),self.__key_order
 
 
-    def decrypt(self,text:str):
+    def decrypt(self,text:str,key:str):
         if isinstance(text,str)==False:
             raise TypeError('Input should be string')
         if len(text)%self.n!=0:
